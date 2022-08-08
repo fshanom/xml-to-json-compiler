@@ -1,0 +1,244 @@
+Grammar:
+
+Rule 0     S' -> e
+Rule 1     e -> empty
+Rule 2     e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG
+Rule 3     f -> TEXTO
+Rule 4     conteudo -> empty
+Rule 5     conteudo -> z1 e z2
+Rule 6     z1 -> empty
+Rule 7     z1 -> TEXTO
+Rule 8     z1 -> conteudo
+Rule 9     z2 -> empty
+Rule 10    z2 -> TEXTO
+Rule 11    z2 -> conteudo
+Rule 12    empty -> <empty>
+
+Terminals, with rules where they appear:
+
+ABRE_TAG             : 2 2
+BARRA                : 2
+FECHA_TAG            : 2 2
+TEXTO                : 3 7 10
+error                : 
+
+Nonterminals, with rules where they appear:
+
+conteudo             : 2 8 11
+e                    : 5 0
+empty                : 1 4 6 9
+f                    : 2 2
+z1                   : 5
+z2                   : 5
+
+
+state 0
+
+    (0) S' -> . e
+    (1) e -> . empty
+    (2) e -> . ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG
+    (12) empty -> .
+    ABRE_TAG        shift and go to state 3
+    $end            reduce using rule 12 (empty -> .)
+
+    e                              shift and go to state 1
+    empty                          shift and go to state 2
+
+state 1
+
+    (0) S' -> e .
+
+
+state 2
+
+    (1) e -> empty .
+    $end            reduce using rule 1 (e -> empty .)
+    TEXTO           reduce using rule 1 (e -> empty .)
+    ABRE_TAG        reduce using rule 1 (e -> empty .)
+
+
+state 3
+
+    (2) e -> ABRE_TAG . f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG
+    (3) f -> . TEXTO
+    TEXTO           shift and go to state 5
+
+    f                              shift and go to state 4
+
+state 4
+
+    (2) e -> ABRE_TAG f . FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG
+    FECHA_TAG       shift and go to state 6
+
+
+state 5
+
+    (3) f -> TEXTO .
+    FECHA_TAG       reduce using rule 3 (f -> TEXTO .)
+
+
+state 6
+
+    (2) e -> ABRE_TAG f FECHA_TAG . conteudo ABRE_TAG BARRA f FECHA_TAG
+    (4) conteudo -> . empty
+    (5) conteudo -> . z1 e z2
+    (12) empty -> .
+    (6) z1 -> . empty
+    (7) z1 -> . TEXTO
+    (8) z1 -> . conteudo
+  ! shift/reduce conflict for TEXTO resolved as shift
+    ABRE_TAG        reduce using rule 12 (empty -> .)
+    TEXTO           shift and go to state 10
+
+    conteudo                       shift and go to state 7
+    empty                          shift and go to state 8
+    z1                             shift and go to state 9
+
+state 7
+
+    (2) e -> ABRE_TAG f FECHA_TAG conteudo . ABRE_TAG BARRA f FECHA_TAG
+    (8) z1 -> conteudo .
+  ! shift/reduce conflict for ABRE_TAG resolved as shift
+    ABRE_TAG        shift and go to state 11
+    TEXTO           reduce using rule 8 (z1 -> conteudo .)
+
+
+state 8
+
+    (4) conteudo -> empty .
+    (6) z1 -> empty .
+  ! reduce/reduce conflict for ABRE_TAG resolved using rule 4 (conteudo -> empty .)
+  ! reduce/reduce conflict for TEXTO resolved using rule 4 (conteudo -> empty .)
+    ABRE_TAG        reduce using rule 4 (conteudo -> empty .)
+    TEXTO           reduce using rule 4 (conteudo -> empty .)
+
+
+state 9
+
+    (5) conteudo -> z1 . e z2
+    (1) e -> . empty
+    (2) e -> . ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG
+    (12) empty -> .
+  ! shift/reduce conflict for ABRE_TAG resolved as shift
+    ABRE_TAG        shift and go to state 3
+    TEXTO           reduce using rule 12 (empty -> .)
+
+    e                              shift and go to state 12
+    empty                          shift and go to state 2
+
+state 10
+
+    (7) z1 -> TEXTO .
+    ABRE_TAG        reduce using rule 7 (z1 -> TEXTO .)
+    TEXTO           reduce using rule 7 (z1 -> TEXTO .)
+
+
+state 11
+
+    (2) e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG . BARRA f FECHA_TAG
+    BARRA           shift and go to state 13
+
+
+state 12
+
+    (5) conteudo -> z1 e . z2
+    (9) z2 -> . empty
+    (10) z2 -> . TEXTO
+    (11) z2 -> . conteudo
+    (12) empty -> .
+    (4) conteudo -> . empty
+    (5) conteudo -> . z1 e z2
+    (6) z1 -> . empty
+    (7) z1 -> . TEXTO
+    (8) z1 -> . conteudo
+  ! shift/reduce conflict for TEXTO resolved as shift
+    TEXTO           shift and go to state 16
+    ABRE_TAG        reduce using rule 12 (empty -> .)
+
+    z1                             shift and go to state 9
+    z2                             shift and go to state 14
+    empty                          shift and go to state 15
+    conteudo                       shift and go to state 17
+
+state 13
+
+    (2) e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA . f FECHA_TAG
+    (3) f -> . TEXTO
+    TEXTO           shift and go to state 5
+
+    f                              shift and go to state 18
+
+state 14
+
+    (5) conteudo -> z1 e z2 .
+    ABRE_TAG        reduce using rule 5 (conteudo -> z1 e z2 .)
+    TEXTO           reduce using rule 5 (conteudo -> z1 e z2 .)
+
+
+state 15
+
+    (9) z2 -> empty .
+    (4) conteudo -> empty .
+    (6) z1 -> empty .
+  ! reduce/reduce conflict for ABRE_TAG resolved using rule 4 (conteudo -> empty .)
+  ! reduce/reduce conflict for TEXTO resolved using rule 4 (conteudo -> empty .)
+  ! reduce/reduce conflict for ABRE_TAG resolved using rule 4 (conteudo -> empty .)
+  ! reduce/reduce conflict for TEXTO resolved using rule 4 (conteudo -> empty .)
+    ABRE_TAG        reduce using rule 4 (conteudo -> empty .)
+    TEXTO           reduce using rule 4 (conteudo -> empty .)
+
+
+state 16
+
+    (10) z2 -> TEXTO .
+    (7) z1 -> TEXTO .
+  ! reduce/reduce conflict for ABRE_TAG resolved using rule 7 (z1 -> TEXTO .)
+  ! reduce/reduce conflict for TEXTO resolved using rule 7 (z1 -> TEXTO .)
+    ABRE_TAG        reduce using rule 7 (z1 -> TEXTO .)
+    TEXTO           reduce using rule 7 (z1 -> TEXTO .)
+
+
+state 17
+
+    (11) z2 -> conteudo .
+    (8) z1 -> conteudo .
+  ! reduce/reduce conflict for ABRE_TAG resolved using rule 8 (z1 -> conteudo .)
+  ! reduce/reduce conflict for TEXTO resolved using rule 8 (z1 -> conteudo .)
+    ABRE_TAG        reduce using rule 8 (z1 -> conteudo .)
+    TEXTO           reduce using rule 8 (z1 -> conteudo .)
+
+
+state 18
+
+    (2) e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f . FECHA_TAG
+    FECHA_TAG       shift and go to state 19
+
+
+state 19
+
+    (2) e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG .
+    $end            reduce using rule 2 (e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG .)
+    TEXTO           reduce using rule 2 (e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG .)
+    ABRE_TAG        reduce using rule 2 (e -> ABRE_TAG f FECHA_TAG conteudo ABRE_TAG BARRA f FECHA_TAG .)
+
+
+Conflicts:
+
+shift/reduce conflict for TEXTO in state 6 resolved as shift
+shift/reduce conflict for ABRE_TAG in state 7 resolved as shift
+shift/reduce conflict for ABRE_TAG in state 9 resolved as shift
+shift/reduce conflict for TEXTO in state 12 resolved as shift
+reduce/reduce conflict in state 8 resolved using rule conteudo -> empty
+rejected rule (z1 -> empty) in state 8
+reduce/reduce conflict in state 15 resolved using rule conteudo -> empty
+rejected rule (z2 -> empty) in state 15
+reduce/reduce conflict in state 15 resolved using rule conteudo -> empty
+rejected rule (z1 -> empty) in state 15
+reduce/reduce conflict in state 16 resolved using rule z1 -> TEXTO
+rejected rule (z2 -> TEXTO) in state 16
+reduce/reduce conflict in state 17 resolved using rule z1 -> conteudo
+rejected rule (z2 -> conteudo) in state 17
+Rule (z1 -> empty) is never reduced
+Rule (z2 -> empty) is never reduced
+Rule (z2 -> TEXTO) is never reduced
+Rule (z2 -> conteudo) is never reduced
